@@ -1,5 +1,6 @@
 # loserbb
 
+[![CI](https://github.com/oddurs/loserbb/actions/workflows/ci.yml/badge.svg)](https://github.com/oddurs/loserbb/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 Microblogging under a tighter rule than Twitter ever had: every day has a number between
