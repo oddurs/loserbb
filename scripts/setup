@@ -1,0 +1,11 @@
+#!/bin/sh
+# One-time setup for a fresh clone.
+set -eu
+cd "$(dirname "$0")/.."
+git config core.hooksPath .githooks
+cairn init --git >/dev/null
+pnpm install --frozen-lockfile
+pnpm exec playwright install chromium
+docker compose up -d --wait
+pnpm migrate
+echo "set up; run scripts/agent doctor to verify the rest"

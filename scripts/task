@@ -1,0 +1,18 @@
+#!/bin/sh
+# The seam CI, git hooks, and scripts/agent call. Add verbs here, not in workflow files.
+set -eu
+cd "$(dirname "$0")/.."
+
+case "${1:-}" in
+    fmt) pnpm exec prettier --write . ;;
+    fmt:check) pnpm exec prettier --check . ;;
+    # typegen writes the route types (LayoutProps, PageProps) a fresh checkout lacks.
+    lint) pnpm exec eslint --max-warnings=0 && pnpm exec next typegen && pnpm exec tsc --noEmit && cairn check ;;
+    test) docker compose up -d --wait && pnpm exec vitest run && pnpm exec playwright test ;;
+    build) pnpm exec next build ;;
+    check) "$0" fmt:check && "$0" lint && "$0" test && "$0" build ;;
+    *)
+        echo "usage: scripts/task {fmt|fmt:check|lint|test|build|check}" >&2
+        exit 2
+        ;;
+esac

@@ -1,0 +1,7 @@
+cairn/
+ROADMAP.md
+pnpm-lock.yaml
+.next/
+test-results/
+playwright-report/
+next-env.d.ts

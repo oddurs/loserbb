@@ -1,0 +1,19 @@
+# Fixed so every worktree shares one database container instead of racing for the port.
+name: loserbb
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: loserbb
+      POSTGRES_PASSWORD: loserbb
+      POSTGRES_DB: loserbb
+    ports:
+      - "54342:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "loserbb"]
+      interval: 1s
+      retries: 30
+    volumes:
+      - db:/var/lib/postgresql/data
+volumes:
+  db:
