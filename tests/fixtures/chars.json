@@ -1,0 +1,219 @@
+[
+  {
+    "note": "plain ascii",
+    "text": "hello",
+    "limit": 5,
+    "count": 5,
+    "ok": true
+  },
+  {
+    "note": "one over",
+    "text": "hello!",
+    "limit": 5,
+    "count": 6,
+    "ok": false
+  },
+  {
+    "note": "empty",
+    "text": "",
+    "limit": 42,
+    "count": 0,
+    "ok": false
+  },
+  {
+    "note": "only whitespace is empty",
+    "text": "   \n\t ",
+    "limit": 42,
+    "count": 0,
+    "ok": false
+  },
+  {
+    "note": "surrounding whitespace trimmed",
+    "text": "  hi  ",
+    "limit": 2,
+    "count": 2,
+    "ok": true
+  },
+  {
+    "note": "inner spaces count",
+    "text": "a b",
+    "limit": 3,
+    "count": 3,
+    "ok": true
+  },
+  {
+    "note": "newline counts as one",
+    "text": "a\nb",
+    "limit": 3,
+    "count": 3,
+    "ok": true
+  },
+  {
+    "note": "CRLF is one grapheme",
+    "text": "a\r\nb",
+    "limit": 3,
+    "count": 3,
+    "ok": true
+  },
+  {
+    "note": "emoji is one",
+    "text": "😀",
+    "limit": 1,
+    "count": 1,
+    "ok": true
+  },
+  {
+    "note": "family ZWJ sequence is one",
+    "text": "👨‍👩‍👧‍👦",
+    "limit": 1,
+    "count": 1,
+    "ok": true
+  },
+  {
+    "note": "flag is one",
+    "text": "🇮🇸",
+    "limit": 1,
+    "count": 1,
+    "ok": true
+  },
+  {
+    "note": "skin tone modifier is one",
+    "text": "👍🏽",
+    "limit": 1,
+    "count": 1,
+    "ok": true
+  },
+  {
+    "note": "keycap is one",
+    "text": "1️⃣",
+    "limit": 1,
+    "count": 1,
+    "ok": true
+  },
+  {
+    "note": "two emoji on a 1 day",
+    "text": "😀😀",
+    "limit": 1,
+    "count": 2,
+    "ok": false
+  },
+  {
+    "note": "decomposed accent is one",
+    "text": "é",
+    "limit": 1,
+    "count": 1,
+    "ok": true
+  },
+  {
+    "note": "precomposed accent is one",
+    "text": "é",
+    "limit": 1,
+    "count": 1,
+    "ok": true
+  },
+  {
+    "note": "hangul syllable",
+    "text": "한국어",
+    "limit": 3,
+    "count": 3,
+    "ok": true
+  },
+  {
+    "note": "decomposed hangul jamo compose to one",
+    "text": "가",
+    "limit": 1,
+    "count": 1,
+    "ok": true
+  },
+  {
+    "note": "japanese",
+    "text": "こんにちは",
+    "limit": 5,
+    "count": 5,
+    "ok": true
+  },
+  {
+    "note": "devanagari conjunct is one under Unicode 15.1 rules; older browsers may say 2, the server decides",
+    "text": "क्षि",
+    "limit": 2,
+    "count": 1,
+    "ok": true
+  },
+  {
+    "note": "arabic",
+    "text": "مرحبا",
+    "limit": 5,
+    "count": 5,
+    "ok": true
+  },
+  {
+    "note": "url counts in full",
+    "text": "https://example.com",
+    "limit": 18,
+    "count": 19,
+    "ok": false
+  },
+  {
+    "note": "mention counts in full",
+    "text": "@someone hi",
+    "limit": 11,
+    "count": 11,
+    "ok": true
+  },
+  {
+    "note": "hashtag counts in full",
+    "text": "#loserbb",
+    "limit": 8,
+    "count": 8,
+    "ok": true
+  },
+  {
+    "note": "exactly 42 on a 42 day",
+    "text": "abcdefghijklmnopqrstuvwxyzabcdefghijklmnop",
+    "limit": 42,
+    "count": 42,
+    "ok": true
+  },
+  {
+    "note": "43 on a 42 day",
+    "text": "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopq",
+    "limit": 42,
+    "count": 43,
+    "ok": false
+  },
+  {
+    "note": "limit 0 rejects a character",
+    "text": "a",
+    "limit": 0,
+    "count": 1,
+    "ok": false
+  },
+  {
+    "note": "limit 0 rejects empty",
+    "text": "",
+    "limit": 0,
+    "count": 0,
+    "ok": false
+  },
+  {
+    "note": "html is just characters",
+    "text": "<b>",
+    "limit": 3,
+    "count": 3,
+    "ok": true
+  },
+  {
+    "note": "zero-width joiner alone after a letter joins",
+    "text": "a‍",
+    "limit": 1,
+    "count": 1,
+    "ok": true
+  },
+  {
+    "note": "zalgo: one grapheme, 501 bytes, over the cap",
+    "text": "x̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶̶",
+    "limit": 1,
+    "count": 1,
+    "ok": false
+  }
+]
